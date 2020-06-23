@@ -1,0 +1,60 @@
+function dydt = odefun(t, y, params)
+
+r2        = params(1);
+Ar        = params(2);
+KT        = params(3);
+a         = params(4);
+sigmaA    = params(5);
+Beta      = params(6);
+V         = params(7);
+Alpha     = params(8);
+r         = params(9);
+KX        = params(10);
+mu        = params(11);
+gamma2    = params(12);
+gamma1    = params(13);
+gamma2s   = params(14);
+rhoF      = params(15);
+rhoFs     = params(16);
+A         = params(17);
+sigmaF    = params(18);
+rhoX      = params(19);
+K1        = params(20);
+rhoX2     = params(21);
+sigmaX    = params(22);
+rMs       = params(23);
+C         = params(24);
+sigmaM    = params(25);
+rM        = params(26);
+rhoVs     = params(27);
+rhoV      = params(28);
+BetaS     = params(29);
+sigmaV    = params(30);
+BetaM     = params(31);
+rhoS      = params(32);
+sigmaS    = params(33);
+
+A2=y(1);
+A1=y(2);
+I= y(3);
+As=y(4);
+Is=y(5);
+F= y(6);
+X= y(7);
+Ms=y(8);
+M= y(9);
+V= y(10);
+S= y(11);
+
+dydt = [
+    r2*(1-(Ar/KT))*A2-(a+sigmaA)*A2-Beta*V*A2-Alpha*F*A2-((r*X)/(X+KX))*A2+mu*As;
+    a*A2-sigmaA*A1-((r*X)/(X+KX))*A1;
+    Beta*V*A2-Alpha*F*I-gamma2*(Ms+M)*I-(gamma1+sigmaA)*I-((r*X)/(X+KX))*I;
+    -Beta*V*As+Alpha*F*A2-(mu+sigmaA)*As-((r*X)/(X+KX))*As;
+    Beta*V*As+Alpha*F*I-(gamma1+sigmaA)*Is-gamma2s*(Ms+M)*Is-((r*X)/(X+KX))*Is;
+    rhoF*I+rhoFs*Is+rhoFs*As+rhoF*Ms-Alpha*F*(A+I+As+Is)-sigmaF*F;
+    rhoX*I+rhoX*Is+rhoX*As+rhoX*Ms+rhoX*(I/(I+K1))*M+((rhoX2*X)/(X+KX))*Ms-sigmaX*X;
+    ((rMs*X)/(X+C))-((r*X)/(X+KX))*Ms-sigmaM*Ms;
+    rM-((r*X)/(X+KX))*M-sigmaM*M;
+    rhoVs*Is+rhoV*I-Beta*V*A2-BetaS*V*As-sigmaV*V-BetaS*S*V-BetaM*V*(M+Ms);
+    rhoS*(A2+As)-BetaS*S*V-sigmaS*S;];
