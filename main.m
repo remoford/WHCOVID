@@ -1,6 +1,9 @@
 
 % THIS IS A CUTE COMMENT TO DEMONSTRATE GIT COMMITTING
 
+
+% HERE IS A SECOND CUTE COMMENT
+
 clear all;
 close all;
 set(0,'DefaultFigureWindowStyle','docked');
